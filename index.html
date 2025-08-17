@@ -1,67 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Photography Portfolio</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
-    header { text-align: center; padding: 30px 10px; background: #333; color: white; }
-    h1 { margin: 0; }
-    .category-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
-    .category-card { width: 300px; cursor: pointer; text-align: center; }
-    .category-card img, .category-card video { width: 100%; border-radius: 8px; object-fit: cover; }
-    .category-card h3 { margin: 10px 0 0 0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyrill Jean F. Galapon - Photography Portfolio</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; color: #333; }
+  header { background: #222; color: #fff; text-align: center; padding: 1em; }
+  header h1 { margin: 0; font-size: 1.8em; }
+  header p { font-size: 1.1em; color: #ccc; }
+  nav { background: #444; display: flex; flex-wrap: wrap; justify-content: center; }
+  nav a { color: #fff; padding: 0.8em 1.2em; text-decoration: none; }
+  nav a:hover { background: #666; }
+  .container { width: 90%; margin: auto; max-width: 1200px; padding: 2em 0; }
+  section { padding: 2em 0; }
+  h2 { text-align: center; margin-bottom: 1em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
+  .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; }
+  video { max-width: 100%; height: auto; }
+  footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
+  @media (max-width: 600px) {
+      header h1 { font-size: 1.5em; }
+      nav a { flex: 1 0 100%; text-align: center; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>My Photography Portfolio</h1>
-    <p>Click a category to view all photos/videos</p>
-  </header>
 
-  <h2 style="text-align:center;">Photo Categories</h2>
-  <div class="category-gallery" id="photo-categories"></div>
+<header>
+  <h1>Cyrill Jean F. Galapon</h1>
+  <p>Cy-sational Moments. Moments that Click.</p>
+</header>
 
-  <h2 style="text-align:center;">Video Categories</h2>
-  <div class="category-gallery" id="video-categories"></div>
+<nav>
+  <a href="#about">About</a>
+  <a href="#photo-categories">Photos</a>
+  <a href="#video-categories">Videos</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-  <script>
-    async function loadCategories() {
+<div class="container">
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About</h2>
+    <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.</p>
+  </section>
+
+  <!-- Photo Categories -->
+  <section id="photo-categories">
+    <h2>Photo Categories</h2>
+    <div class="grid" id="photo-grid"></div>
+  </section>
+
+  <!-- Video Categories -->
+  <section id="video-categories">
+    <h2>Video Categories</h2>
+    <div class="grid" id="video-grid"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;">Email: <a href="mailto:cyrillgalapon@gmail.com">cyrillgalapon@gmail.com</a></p>
+    <p style="text-align:center;">Instagram: <a href="#">@yourinstagram</a></p>
+    <p style="text-align:center;">Facebook: <a href="#">Your Facebook</a></p>
+  </section>
+
+</div>
+
+<footer>
+  &copy; 2025 Cyrill Jean F. Galapon. All rights reserved.
+</footer>
+
+<script>
+async function loadCategories() {
   const res = await fetch("media.json");
   const data = await res.json();
 
-  const photoGallery = document.getElementById("photo-categories");
-  for (const category in data.categories) {
-    const card = document.createElement("div");
-    card.className = "category-card";
-    card.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
-
+  const photoGrid = document.getElementById("photo-grid");
+  for(const category in data.images){
     const img = document.createElement("img");
-    img.src = "images/" + encodeURIComponent(data.categories[category][0]); // first image
-    const title = document.createElement("h3");
-    title.textContent = category;
-
-    card.appendChild(img);
-    card.appendChild(title);
-    photoGallery.appendChild(card);
+    img.src = "images/" + encodeURIComponent(data.images[category][0]); // first image
+    img.alt = category;
+    img.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
+    photoGrid.appendChild(img);
   }
 
-  const videoGallery = document.getElementById("video-categories");
-  data.videos.forEach(video => {
-    const card = document.createElement("div");
-    card.className = "category-card";
-    card.onclick = () => window.location.href = `category.html?type=videos&name=Travel`; // Assuming all videos are in the "Travel" category
-
-    const vid = document.createElement("video");
-    vid.src = "videos/" + encodeURIComponent(video);
-    vid.controls = true;
-    const title = document.createElement("h3");
-    title.textContent = "Travel"; // Set appropriate title for videos
-
-    card.appendChild(vid);
-    card.appendChild(title);
-    videoGallery.appendChild(card);
-  });
+  const videoGrid = document.getElementById("video-grid");
+  for(const category in data.videos){
+    const vid = document.createElement("img"); // clickable thumbnail
+    vid.src = "videos/" + encodeURIComponent(data.videos[category][0]);
+    vid.alt = category;
+    vid.onclick = () => window.location.href = `category.html?type=videos&name=${encodeURIComponent(category)}`;
+    videoGrid.appendChild(vid);
+  }
 }
 
 loadCategories();
+</script>
+
+</body>
+</html>
