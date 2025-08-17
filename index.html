@@ -7,52 +7,47 @@
     body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
     header { text-align: center; padding: 30px 10px; background: #333; color: white; }
     h1 { margin: 0; }
-    section { padding: 20px; }
-    .gallery, .video-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .gallery img, .video-gallery video { width: 300px; border-radius: 8px; object-fit: cover; }
-    video { max-width: 300px; height: auto; }
+    .category-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+    .category-card { width: 300px; cursor: pointer; text-align: center; }
+    .category-card img, .category-card video { width: 100%; border-radius: 8px; object-fit: cover; }
+    .category-card h3 { margin: 10px 0 0 0; }
   </style>
 </head>
 <body>
   <header>
     <h1>My Photography Portfolio</h1>
-    <p>Welcome to my collection of photos and videos</p>
+    <p>Click a category to view all photos/videos</p>
   </header>
 
-  <section>
-    <h2 style="text-align:center;">Photos</h2>
-    <div class="gallery" id="gallery"></div>
-  </section>
+  <h2 style="text-align:center;">Photo Categories</h2>
+  <div class="category-gallery" id="photo-categories"></div>
 
-  <section>
-    <h2 style="text-align:center;">Videos</h2>
-    <div class="video-gallery" id="video-gallery"></div>
-  </section>
+  <h2 style="text-align:center;">Video Categories</h2>
+  <div class="category-gallery" id="video-categories"></div>
 
   <script>
-    async function loadMedia() {
-      const res = await fetch("media.json"); 
+    async function loadCategories() {
+      const res = await fetch("media.json");
       const data = await res.json();
 
-      const gallery = document.getElementById("gallery");
-      data.images.forEach(img => {
-        const imageElement = document.createElement("img");
-        imageElement.src = "portfolio/images/" + encodeURIComponent(img)
-        gallery.appendChild(imageElement);
-      });
+      const photoGallery = document.getElementById("photo-categories");
+      for (const category in data.images) {
+        const card = document.createElement("div");
+        card.className = "category-card";
+        card.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
 
-      const videoGallery = document.getElementById("video-gallery");
-      data.videos.forEach(video => {
-        if(video){ // skip empty strings
-          const videoElement = document.createElement("video");
-          videoElement.controls = true;
-          videoElement.src = "portfolio/videos/" + encodeURIComponent(video)
-          videoGallery.appendChild(videoElement);
-        }
-      });
-    }
+        const img = document.createElement("img");
+        img.src = "images/" + encodeURIComponent(data.images[category][0]); // first image
+        const title = document.createElement("h3");
+        title.textContent = category;
 
-    loadMedia();
-  </script>
-</body>
-</html>
+        card.appendChild(img);
+        card.appendChild(title);
+        photoGallery.appendChild(card);
+      }
+
+      const videoGallery = document.getElementById("video-categories");
+      for (const category in data.videos) {
+        const card = document.createElement("div");
+        card.className = "category-card";
+        card.onclick = () => window.location.href = `category.html?type=videos&name=${encodeURIC
