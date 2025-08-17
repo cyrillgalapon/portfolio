@@ -27,27 +27,41 @@
 
   <script>
     async function loadCategories() {
-      const res = await fetch("media.json");
-      const data = await res.json();
+  const res = await fetch("media.json");
+  const data = await res.json();
 
-      const photoGallery = document.getElementById("photo-categories");
-      for (const category in data.images) {
-        const card = document.createElement("div");
-        card.className = "category-card";
-        card.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
+  const photoGallery = document.getElementById("photo-categories");
+  for (const category in data.categories) {
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
 
-        const img = document.createElement("img");
-        img.src = "images/" + encodeURIComponent(data.images[category][0]); // first image
-        const title = document.createElement("h3");
-        title.textContent = category;
+    const img = document.createElement("img");
+    img.src = "images/" + encodeURIComponent(data.categories[category][0]); // first image
+    const title = document.createElement("h3");
+    title.textContent = category;
 
-        card.appendChild(img);
-        card.appendChild(title);
-        photoGallery.appendChild(card);
-      }
+    card.appendChild(img);
+    card.appendChild(title);
+    photoGallery.appendChild(card);
+  }
 
-      const videoGallery = document.getElementById("video-categories");
-      for (const category in data.videos) {
-        const card = document.createElement("div");
-        card.className = "category-card";
-        card.onclick = () => window.location.href = `category.html?type=videos&name=${encodeURIC
+  const videoGallery = document.getElementById("video-categories");
+  data.videos.forEach(video => {
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.onclick = () => window.location.href = `category.html?type=videos&name=Travel`; // Assuming all videos are in the "Travel" category
+
+    const vid = document.createElement("video");
+    vid.src = "videos/" + encodeURIComponent(video);
+    vid.controls = true;
+    const title = document.createElement("h3");
+    title.textContent = "Travel"; // Set appropriate title for videos
+
+    card.appendChild(vid);
+    card.appendChild(title);
+    videoGallery.appendChild(card);
+  });
+}
+
+loadCategories();
