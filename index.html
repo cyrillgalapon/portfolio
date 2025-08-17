@@ -16,8 +16,22 @@
   section { padding: 2em 0; }
   h2 { text-align: center; margin-bottom: 1em; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
-  .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; }
-  video { max-width: 100%; height: auto; }
+  .grid-item { position: relative; cursor: pointer; }
+  .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .grid-item .label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 0.5em;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 0 0 5px 5px;
+  }
+  .grid-item:hover .label { opacity: 1; }
   footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
   @media (max-width: 600px) {
       header h1 { font-size: 1.5em; }
@@ -78,22 +92,48 @@ async function loadCategories() {
   const res = await fetch("media.json");
   const data = await res.json();
 
+  // Photos
   const photoGrid = document.getElementById("photo-grid");
   for(const category in data.images){
+    const div = document.createElement("div");
+    div.className = "grid-item";
+    div.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
+
     const img = document.createElement("img");
     img.src = "images/" + encodeURIComponent(data.images[category][0]); // first image
     img.alt = category;
-    img.onclick = () => window.location.href = `category.html?type=images&name=${encodeURIComponent(category)}`;
-    photoGrid.appendChild(img);
+
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = category;
+
+    div.appendChild(img);
+    div.appendChild(label);
+    photoGrid.appendChild(div);
   }
 
+  // Videos
   const videoGrid = document.getElementById("video-grid");
   for(const category in data.videos){
-    const vid = document.createElement("img"); // clickable thumbnail
+    const div = document.createElement("div");
+    div.className = "grid-item";
+    div.onclick = () => window.location.href = `category.html?type=videos&name=${encodeURIComponent(category)}`;
+
+    const vid = document.createElement("video");
     vid.src = "videos/" + encodeURIComponent(data.videos[category][0]);
+    vid.muted = true;
+    vid.loop = true;
+    vid.autoplay = true;
+    vid.playsInline = true;
     vid.alt = category;
-    vid.onclick = () => window.location.href = `category.html?type=videos&name=${encodeURIComponent(category)}`;
-    videoGrid.appendChild(vid);
+
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = category;
+
+    div.appendChild(vid);
+    div.appendChild(label);
+    videoGrid.appendChild(div);
   }
 }
 
