@@ -30,24 +30,39 @@
   </section>
 
   <script>
-    // Display all images in the images/ folder
-    const images = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg']; // replace with your actual image file names
+    // Auto-load all images in images/ folder
+    const images = [];
+    for (let i = 0; i < 100; i++) { // assumes max 100 images
+      const img = `images/photo${i+1}.jpg`;
+      images.push(img);
+    }
     const gallery = document.getElementById('gallery');
     images.forEach(img => {
-      const imageElement = document.createElement('img');
-      imageElement.src = `images/${img}`;
-      imageElement.alt = img;
-      gallery.appendChild(imageElement);
+      fetch(img).then(res => {
+        if (res.ok) {
+          const imageElement = document.createElement('img');
+          imageElement.src = img;
+          gallery.appendChild(imageElement);
+        }
+      });
     });
 
-    // Display all videos in the videos/ folder
-    const videos = ['video1.mp4', 'video2.mp4']; // replace with your actual video file names
+    // Auto-load all videos in videos/ folder
+    const videos = [];
+    for (let i = 0; i < 100; i++) { // assumes max 100 videos
+      const vid = `videos/video${i+1}.mp4`;
+      videos.push(vid);
+    }
     const videoGallery = document.getElementById('video-gallery');
     videos.forEach(video => {
-      const videoElement = document.createElement('video');
-      videoElement.controls = true;
-      videoElement.src = `videos/${video}`;
-      videoGallery.appendChild(videoElement);
+      fetch(video).then(res => {
+        if (res.ok) {
+          const videoElement = document.createElement('video');
+          videoElement.controls = true;
+          videoElement.src = video;
+          videoGallery.appendChild(videoElement);
+        }
+      });
     });
   </script>
 </body>
