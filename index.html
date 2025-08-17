@@ -37,7 +37,7 @@
       const gallery = document.getElementById("gallery");
       data.images.forEach(img => {
         const imageElement = document.createElement("img");
-        imageElement.src = "images/" + encodeURIComponent(img);
+        imageElement.src = "portfolio/images/" + encodeURIComponent(img)
         gallery.appendChild(imageElement);
       });
 
@@ -46,7 +46,7 @@
         if(video){ // skip empty strings
           const videoElement = document.createElement("video");
           videoElement.controls = true;
-          videoElement.src = "videos/" + encodeURIComponent(video);
+          videoElement.src = "portfolio/videos/" + encodeURIComponent(video)
           videoGallery.appendChild(videoElement);
         }
       });
