@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Category</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    header { text-align: center; padding: 30px 10px; background: #333; color: white; }
+    h1 { margin: 0; }
+    .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+    .gallery img, .gallery video { width: 300px; border-radius: 8px; object-fit: cover; }
+    video { max-width: 300px; height: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="category-title">Category</h1>
+  </header>
+
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    async function loadCategory() {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type"); // "images" or "videos"
+      const categoryName = params.get("name");
+      if (!categoryName || !type) return;
+
+      document.getElementById("category-title").textContent = categoryName;
+
+      const res = await fetch("media.json");
+      const data = await res.json();
+
+      const gallery = document.getElementById("gallery");
+      const items = data[type][categoryName] || [];
+
+      items.forEach(file => {
+        if(file){
+          if(type === "images"){
+            const img = document.createElement("img");
+            img.src = "images/" + encodeURIComponent(file);
+            gallery.appendChild(img);
+          } else {
+            const vid = document.createElement("video");
+            vid.controls = true;
+            vid.src = "videos/" + encodeURIComponent(file);
+            gallery.appendChild(vid);
+          }
+        }
+      });
+    }
+
+    loadCategory();
+  </script>
+</body>
+</html>
