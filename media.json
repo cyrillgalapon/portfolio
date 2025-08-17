@@ -1,10 +1,35 @@
+
 {
-  "images": [
-    "DSC_1389-1.jpg",
-    "DSC_1671.jpg",
-    "yanbu2024-me-4.jpg"
-  ],
+  "categories": {
+    "Landscape": [
+      "DSC_1389-1.jpg",
+      "DSC_1671.jpg"
+    ],
+    "Portrait": [
+      "DSC_1389-1.jpg",
+      "DSC_1671.jpg",
+      "yanbu2024-me-4.jpg"
+    ],
+    "Street": [
+      "street1.jpg",
+      "street2.jpg"
+    ],
+    "Travel": [
+      "travel1.jpg",
+      "travel2.jpg",
+      "vacation1.jpg"
+    ],
+    "Events": [
+      "event1.jpg",
+      "event2.jpg"
+    ],
+    "Nature": [
+      "nature1.jpg",
+      "nature2.jpg"
+    ]
+  },
   "videos": [
-    "Decvacay2024 - 720 P.mp4"
+    "Decvacay2024 - 720 P.mp4",
+   
   ]
 }
