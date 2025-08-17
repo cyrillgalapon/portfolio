@@ -5,126 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cyrill Jean F. Galapon - Photography Portfolio</title>
 <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; color: #333; }
-    header { background: #222; color: #fff; text-align: center; padding: 1em; }
-    header h1 { margin: 0; font-size: 1.8em; }
-    header p { font-size: 1.1em; color: #ccc; }
-    nav { background: #444; display: flex; flex-wrap: wrap; justify-content: center; }
-    nav a { color: #fff; padding: 0.8em 1.2em; text-decoration: none; }
-    nav a:hover { background: #666; }
-    .container { width: 90%; margin: auto; max-width: 1200px; }
-    section { padding: 2em 0; }
-    h2 { text-align: center; margin-bottom: 1em; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
-    .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-    footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
-    @media (max-width: 600px) {
-        header h1 { font-size: 1.5em; }
-        nav a { flex: 1 0 100%; text-align: center; }
-    }
+  body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; color: #333; }
+  header { background: #222; color: #fff; text-align: center; padding: 1em; }
+  header h1 { margin: 0; font-size: 1.8em; }
+  header p { font-size: 1.1em; color: #ccc; }
+  nav { background: #444; display: flex; flex-wrap: wrap; justify-content: center; }
+  nav a { color: #fff; padding: 0.8em 1.2em; text-decoration: none; }
+  nav a:hover { background: #666; }
+  .container { width: 90%; margin: auto; max-width: 1200px; }
+  section { padding: 2em 0; }
+  h2 { text-align: center; margin-bottom: 1em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
+  .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .category-card { cursor: pointer; text-align: center; }
+  .category-card h3 { margin: 0.5em 0; }
+  footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
+  @media (max-width: 600px) {
+      header h1 { font-size: 1.5em; }
+      nav a { flex: 1 0 100%; text-align: center; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Cyrill Jean F. Galapon</h1>
-    <p>Cy-sational Moments. Moments that Click.</p>
+  <h1>Cyrill Jean F. Galapon</h1>
+  <p>Cy-sational Moments. Moments that Click.</p>
 </header>
 
 <nav>
-    <a href="#about">About</a>
-    <a href="#portraits">Portraits</a>
-    <a href="#events">Events</a>
-    <a href="#landscapes">Landscapes</a>
-    <a href="#street">Street</a>
-    <a href="#products">Products</a>
-    <a href="#videos">Videos</a>
-    <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="#categories">Categories</a>
+  <a href="#videos">Videos</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <div class="container">
 
 <section id="about">
-    <h2>About</h2>
-    <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.</p>
+  <h2>About</h2>
+  <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.</p>
 </section>
 
-<section id="portraits">
-    <h2>Portraits</h2>
-    <div class="grid" id="portraits-grid"></div>
+<section id="categories">
+  <h2>Photo Categories</h2>
+  <div class="grid" id="categories-grid"></div>
 </section>
 
-<section id="events">
-    <h2>Events</h2>
-    <div class="grid" id="events-grid"></div>
-</section>
-
-<section id="landscapes">
-    <h2>Landscapes</h2>
-    <div class="grid" id="landscapes-grid"></div>
-</section>
-
-<section id="street">
-    <h2>Street Photography</h2>
-    <div class="grid" id="street-grid"></div>
-</section>
-
-<section id="products">
-    <h2>Product Photography</h2>
-    <div class="grid" id="products-grid"></div>
+<section id="category-details">
+  <!-- Individual category sections will be generated dynamically -->
 </section>
 
 <section id="videos">
-    <h2>Videos</h2>
-    <div class="grid" id="videos-grid"></div>
+  <h2>Videos</h2>
+  <div class="grid" id="videos-grid"></div>
 </section>
 
 <section id="contact">
-    <h2>Contact</h2>
-    <p style="text-align:center;">Email: <a href="mailto:cyrillgalapon@gmail.com">cyrillgalapon@gmail.com</a></p>
-    <p style="text-align:center;">Instagram: <a href="#">@yourinstagram</a></p>
-    <p style="text-align:center;">Facebook: <a href="#">Your Facebook</a></p>
+  <h2>Contact</h2>
+  <p style="text-align:center;">Email: <a href="mailto:cyrillgalapon@gmail.com">cyrillgalapon@gmail.com</a></p>
+  <p style="text-align:center;">Instagram: <a href="#">@yourinstagram</a></p>
+  <p style="text-align:center;">Facebook: <a href="#">Your Facebook</a></p>
 </section>
 
 </div>
 
 <footer>
-    &copy; 2025 Cyrill Jean F. Galapon. All rights reserved.
+  &copy; 2025 Cyrill Jean F. Galapon. All rights reserved.
 </footer>
 
 <script>
 async function loadMedia() {
-    const res = await fetch("/media.json");
-    const data = await res.json();
+  const res = await fetch("media.json");
+  const data = await res.json();
 
-    // Helper to load images into a section
-    function loadImages(categoryName, gridId) {
-        const grid = document.getElementById(gridId);
-        if (!data.categories[categoryName]) return;
-        data.categories[categoryName].forEach(file => {
-            const img = document.createElement("img");
-            img.src = "/images/" + encodeURIComponent(file);
-            img.alt = categoryName;
-            grid.appendChild(img);
-        });
+  const categoriesGrid = document.getElementById("categories-grid");
+  const categoryDetails = document.getElementById("category-details");
+
+  // Loop through all categories
+  for (const category in data.categories) {
+    const images = data.categories[category];
+
+    // ----- Category Card (top section) -----
+    const card = document.createElement("div");
+    card.className = "category-card";
+
+    const img = document.createElement("img");
+    img.src = "images/" + encodeURIComponent(images[0]);
+    img.alt = category;
+
+    const title = document.createElement("h3");
+    title.textContent = category;
+
+    card.appendChild(img);
+    card.appendChild(title);
+
+    // click opens category section (scroll to it)
+    card.onclick = () => {
+      document.getElementById(category.toLowerCase()).scrollIntoView({ behavior: "smooth" });
     }
 
-    loadImages("Portrait", "portraits-grid");
-    loadImages("Events", "events-grid");
-    loadImages("Landscape", "landscapes-grid");
-    loadImages("Street", "street-grid");
-    loadImages("Products", "products-grid");
+    categoriesGrid.appendChild(card);
 
-    // Load videos
-    const videoGrid = document.getElementById("videos-grid");
-    data.videos.forEach(file => {
-        if(file){
-            const vid = document.createElement("video");
-            vid.src = "/videos/" + encodeURIComponent(file);
-            vid.controls = true;
-            videoGrid.appendChild(vid);
-        }
+    // ----- Individual Category Section -----
+    const section = document.createElement("section");
+    section.id = category.toLowerCase();
+
+    const h2 = document.createElement("h2");
+    h2.textContent = category;
+    section.appendChild(h2);
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    images.forEach(file => {
+      const imgEl = document.createElement("img");
+      imgEl.src = "images/" + encodeURIComponent(file);
+      imgEl.alt = category;
+      grid.appendChild(imgEl);
     });
+
+    section.appendChild(grid);
+    categoryDetails.appendChild(section);
+  }
+
+  // ----- Videos Section -----
+  const videoGrid = document.getElementById("videos-grid");
+  data.videos.forEach(file => {
+    if(file){
+      const vid = document.createElement("video");
+      vid.src = "videos/" + encodeURIComponent(file);
+      vid.controls = true;
+      videoGrid.appendChild(vid);
+    }
+  });
 }
 
 loadMedia();
