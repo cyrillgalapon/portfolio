@@ -9,7 +9,7 @@
     h1 { margin: 0; }
     section { padding: 20px; }
     .gallery, .video-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .gallery img, .video-gallery video { width: 300px; border-radius: 8px; }
+    .gallery img, .video-gallery video { width: 300px; border-radius: 8px; object-fit: cover; }
     video { max-width: 300px; height: auto; }
   </style>
 </head>
@@ -31,22 +31,24 @@
 
   <script>
     async function loadMedia() {
-      const res = await fetch("media.json"); // load file
+      const res = await fetch("media.json"); 
       const data = await res.json();
 
       const gallery = document.getElementById("gallery");
       data.images.forEach(img => {
         const imageElement = document.createElement("img");
-        imageElement.src = "images/" + img;
+        imageElement.src = "images/" + encodeURIComponent(img);
         gallery.appendChild(imageElement);
       });
 
       const videoGallery = document.getElementById("video-gallery");
       data.videos.forEach(video => {
-        const videoElement = document.createElement("video");
-        videoElement.controls = true;
-        videoElement.src = "videos/" + video;
-        videoGallery.appendChild(videoElement);
+        if(video){ // skip empty strings
+          const videoElement = document.createElement("video");
+          videoElement.controls = true;
+          videoElement.src = "videos/" + encodeURIComponent(video);
+          videoGallery.appendChild(videoElement);
+        }
       });
     }
 
