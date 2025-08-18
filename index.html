@@ -17,8 +17,6 @@
   h2 { text-align: center; margin-bottom: 1em; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
   .grid img, .grid video { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  .category-card { cursor: pointer; text-align: center; }
-  .category-card h3 { margin: 0.5em 0; }
   footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
   @media (max-width: 600px) {
       header h1 { font-size: 1.5em; }
@@ -35,7 +33,6 @@
 
 <nav>
   <a href="#about">About</a>
-  <a href="#categories">Categories</a>
   <a href="#videos">Videos</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -44,105 +41,4 @@
 
 <section id="about">
   <h2>About</h2>
-  <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.</p>
-</section>
-
-<section id="categories">
-  <h2>Photo Categories</h2>
-  <div class="grid" id="categories-grid"></div>
-</section>
-
-<section id="category-details">
-  <!-- Individual category sections will be generated dynamically -->
-</section>
-
-<section id="videos">
-  <h2>Videos</h2>
-  <div class="grid" id="videos-grid"></div>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <p style="text-align:center;">Email: <a href="mailto:cyrillgalapon@gmail.com">cyrillgalapon@gmail.com</a></p>
-  <p style="text-align:center;">Instagram: <a href="#">@yourinstagram</a></p>
-  <p style="text-align:center;">Facebook: <a href="#">Your Facebook</a></p>
-</section>
-
-</div>
-
-<footer>
-  &copy; 2025 Cyrill Jean F. Galapon. All rights reserved.
-</footer>
-
-<script>
-async function loadMedia() {
-  const res = await fetch("media.json");
-  const data = await res.json();
-
-  const categoriesGrid = document.getElementById("categories-grid");
-  const categoryDetails = document.getElementById("category-details");
-
-  // Loop through all categories
-  for (const category in data.categories) {
-    const images = data.categories[category];
-
-    // ----- Category Card (top section) -----
-    const card = document.createElement("div");
-    card.className = "category-card";
-
-    const img = document.createElement("img");
-    img.src = "portfolio/images/" + encodeURIComponent(images[0]);
-    img.alt = category;
-
-    const title = document.createElement("h3");
-    title.textContent = category;
-
-    card.appendChild(img);
-    card.appendChild(title);
-
-    // click opens category section (scroll to it)
-    card.onclick = () => {
-      document.getElementById(category.toLowerCase()).scrollIntoView({ behavior: "smooth" });
-    }
-
-    categoriesGrid.appendChild(card);
-
-    // ----- Individual Category Section -----
-    const section = document.createElement("section");
-    section.id = category.toLowerCase();
-
-    const h2 = document.createElement("h2");
-    h2.textContent = category;
-    section.appendChild(h2);
-
-    const grid = document.createElement("div");
-    grid.className = "grid";
-
-    images.forEach(file => {
-      const imgEl = document.createElement("img");
-      imgEl.src = "portfolio/images/" + encodeURIComponent(file);
-      imgEl.alt = category;
-      grid.appendChild(imgEl);
-    });
-
-    section.appendChild(grid);
-    categoryDetails.appendChild(section);
-  }
-
-  // ----- Videos Section -----
-  const videoGrid = document.getElementById("videos-grid");
-  data.videos.forEach(file => {
-    if(file){
-      const vid = document.createElement("video");
-      vid.src = "portfolio/videos/" + encodeURIComponent(file);
-      vid.controls = true;
-      videoGrid.appendChild(vid);
-    }
-  });
-}
-
-loadMedia();
-</script>
-
-</body>
-</html>
+  <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bri
