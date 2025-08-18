@@ -91,7 +91,7 @@ async function loadMedia() {
     card.className = "category-card";
 
     const img = document.createElement("img");
-    img.src = "images/" + encodeURIComponent(images[0]);
+    img.src = "portfolio/images/" + encodeURIComponent(images[0]);
     img.alt = category;
 
     const title = document.createElement("h3");
@@ -120,7 +120,7 @@ async function loadMedia() {
 
     images.forEach(file => {
       const imgEl = document.createElement("img");
-      imgEl.src = "images/" + encodeURIComponent(file);
+      imgEl.src = "portfolio/images/" + encodeURIComponent(file);
       imgEl.alt = category;
       grid.appendChild(imgEl);
     });
@@ -134,7 +134,7 @@ async function loadMedia() {
   data.videos.forEach(file => {
     if(file){
       const vid = document.createElement("video");
-      vid.src = "videos/" + encodeURIComponent(file);
+      vid.src = "portfolio/videos/" + encodeURIComponent(file);
       vid.controls = true;
       videoGrid.appendChild(vid);
     }
