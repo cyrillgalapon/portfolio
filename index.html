@@ -229,7 +229,7 @@ async function loadMedia() {
   data.videos.forEach(file => {
     if(file){
       const vid = document.createElement("video");
-      vid.src = "videos/" + encodeURIComponent(file);
+      vid.src = "portfolio/videos/" + encodeURIComponent(file);
       vid.controls = true;
       vid.style.cursor = 'pointer';
       vid.onclick = () => vid.play(); // optional: click to play
