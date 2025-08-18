@@ -5,22 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cyrill Jean F. Galapon - Photography Portfolio</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; color: #333; }
-  header { background: #222; color: #fff; text-align: center; padding: 1em; }
+  body { font-family: Arial, sans-serif; margin: 0; background: #faf5ff; color: #333; }
+  header { background: #6a4bc1; color: #fff; text-align: center; padding: 1em; border-bottom: 4px solid #53349c; }
   header h1 { margin: 0; font-size: 1.8em; }
-  header p { font-size: 1.1em; color: #ccc; }
-  nav { background: #444; display: flex; flex-wrap: wrap; justify-content: center; }
-  nav a { color: #fff; padding: 0.8em 1.2em; text-decoration: none; }
-  nav a:hover { background: #666; }
+  header p { font-size: 1.1em; color: #e0d9f5; }
+  nav { background: #7b5fc0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 3px solid #53349c; }
+  nav a { color: #fff; padding: 0.8em 1.2em; text-decoration: none; transition: 0.3s; }
+  nav a:hover { background: #5a3fa5; }
   .container { width: 90%; margin: auto; max-width: 1200px; }
   section { padding: 2em 0; }
-  h2 { text-align: center; margin-bottom: 1em; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; }
-  .grid img, .grid video { width: 100%; height: 250; object-fit: cover;display: block; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  footer { background: #222; color: #ccc; text-align: center; padding: 1em; font-size: 0.9em; }
+  h2 { text-align: center; margin-bottom: 1em; color: #53349c; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1em; justify-items: center; }
+  .grid-item { width: 100%; height: 180px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.3s; }
+  .grid-item:hover { transform: scale(1.03); }
+  .grid-item img, .grid-item video { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 15px; }
+  footer { background: #6a4bc1; color: #e0d9f5; text-align: center; padding: 1em; font-size: 0.9em; border-top: 4px solid #53349c; }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 600px) {
       header h1 { font-size: 1.5em; }
       nav a { flex: 1 0 100%; text-align: center; }
+      .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -100,11 +106,17 @@ async function loadMedia() {
   function loadCategoryImages(categoryName, gridId) {
     const grid = document.getElementById(gridId);
     if(!data.categories[categoryName]) return;
-    data.categories[categoryName].forEach(file => {
+    const images = data.categories[categoryName].slice(0,8); // max 8 images
+    images.forEach(file => {
+      const container = document.createElement("div");
+      container.className = "grid-item";
+
       const img = document.createElement("img");
       img.src = "images/" + encodeURIComponent(file);
       img.alt = categoryName;
-      grid.appendChild(img);
+
+      container.appendChild(img);
+      grid.appendChild(container);
     });
   }
 
@@ -117,10 +129,15 @@ async function loadMedia() {
   const videoGrid = document.getElementById("videos-grid");
   data.videos.forEach(file => {
     if(file){
+      const container = document.createElement("div");
+      container.className = "grid-item";
+
       const vid = document.createElement("video");
       vid.src = "videos/" + encodeURIComponent(file);
       vid.controls = true;
-      videoGrid.appendChild(vid);
+
+      container.appendChild(vid);
+      videoGrid.appendChild(container);
     }
   });
 }
