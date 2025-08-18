@@ -11,51 +11,66 @@
     background: #FAF0FF; /* light body background */
     color: #333;
   }
+
   header {
     background: #B554D6; /* magenta-purple */
     color: #fff;
     text-align: center;
     padding: 2em 1em;
   }
+
   header h1 { margin: 0; font-size: 2em; }
   header p { font-size: 1.2em; color: #f0e6ff; }
+
   nav {
     background: #A040C0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   nav a {
     color: #fff;
     padding: 0.8em 1.2em;
     text-decoration: none;
   }
+
   nav a:hover { background: #8B2EA9; }
+
   .container { width: 90%; margin: auto; max-width: 1200px; }
   section { padding: 2em 0; }
   h2 { text-align: center; margin-bottom: 1em; }
-  
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1em;
-    justify-content: center; /* centers row if fewer items */
+    justify-content: center; /* auto-center rows */
   }
+
   .grid img {
     width: 100%;
     height: 250px;
-    object-fit: contain; /* keeps full image visible */
+    object-fit: cover; /* keeps height same, fills box nicely */
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    background-color: #faf0ff; /* fill space when image aspect ratio differs */
+    display: block;
   }
-  .grid video {
+
+  .video-wrapper {
+    position: relative;
     width: 100%;
     height: 250px;
-    object-fit: cover; /* can use contain to show full video */
+    overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    background-color: #000;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* preserve aspect ratio */
+    display: block;
   }
 
   footer {
@@ -66,11 +81,11 @@
     font-size: 0.9em;
   }
 
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { 
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 200px); } }
+  @media (max-width: 600px) {
     header h1 { font-size: 1.5em; }
     nav a { flex: 1 0 100%; text-align: center; }
-    .grid { grid-template-columns: repeat(1, 1fr); }
+    .grid { grid-template-columns: repeat(1, 200px); }
   }
 </style>
 </head>
@@ -97,7 +112,7 @@
 <section id="about">
   <h2>About</h2>
   <p style="text-align:center;">
-    Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories.
+    Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.
   </p>
 </section>
 
@@ -152,7 +167,7 @@ async function loadMedia() {
   function loadCategoryImages(categoryName, gridId) {
     const grid = document.getElementById(gridId);
     if(!data.categories[categoryName]) return;
-    data.categories[categoryName].slice(0,8).forEach(file => {
+    data.categories[categoryName].forEach(file => {
       const img = document.createElement("img");
       img.src = "images/" + encodeURIComponent(file);
       img.alt = categoryName;
@@ -169,10 +184,15 @@ async function loadMedia() {
   const videoGrid = document.getElementById("videos-grid");
   data.videos.forEach(file => {
     if(file){
+      const wrapper = document.createElement("div");
+      wrapper.className = "video-wrapper";
+
       const vid = document.createElement("video");
       vid.src = "videos/" + encodeURIComponent(file);
       vid.controls = true;
-      videoGrid.appendChild(vid);
+
+      wrapper.appendChild(vid);
+      videoGrid.appendChild(wrapper);
     }
   });
 }
