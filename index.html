@@ -34,35 +34,28 @@
   .container { width: 90%; margin: auto; max-width: 1200px; }
   section { padding: 2em 0; }
   h2 { text-align: center; margin-bottom: 1em; }
-
-  /* Image Grids */
+  
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1em;
-    justify-content: center; /* centers items if row isn’t full */
+    justify-content: center; /* centers row if fewer items */
   }
   .grid img {
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    object-fit: contain; /* keeps full image visible */
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    background-color: #faf0ff; /* fill space when image aspect ratio differs */
   }
-
-  /* Video Grid */
-  #videos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1em;
-    justify-content: center;
-  }
-  #videos-grid video {
+  .grid video {
     width: 100%;
-    max-height: 300px;
-    height: auto;
+    height: 250px;
+    object-fit: cover; /* can use contain to show full video */
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    background-color: #000;
   }
 
   footer {
@@ -73,15 +66,11 @@
     font-size: 0.9em;
   }
 
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-    #videos-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-  }
-  @media (max-width: 600px) {
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { 
     header h1 { font-size: 1.5em; }
     nav a { flex: 1 0 100%; text-align: center; }
-    .grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-    #videos-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .grid { grid-template-columns: repeat(1, 1fr); }
   }
 </style>
 </head>
@@ -108,7 +97,7 @@
 <section id="about">
   <h2>About</h2>
   <p style="text-align:center;">
-    Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.
+    Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories.
   </p>
 </section>
 
@@ -163,7 +152,6 @@ async function loadMedia() {
   function loadCategoryImages(categoryName, gridId) {
     const grid = document.getElementById(gridId);
     if(!data.categories[categoryName]) return;
-    // limit to 8 images (2 rows)
     data.categories[categoryName].slice(0,8).forEach(file => {
       const img = document.createElement("img");
       img.src = "images/" + encodeURIComponent(file);
