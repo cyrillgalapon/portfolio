@@ -33,6 +33,11 @@
 
 <nav>
   <a href="#about">About</a>
+  <a href="#portraits">Portraits</a>
+  <a href="#events">Events</a>
+  <a href="#landscapes">Landscapes</a>
+  <a href="#street">Street</a>
+  <a href="#products">Products</a>
   <a href="#videos">Videos</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -41,4 +46,87 @@
 
 <section id="about">
   <h2>About</h2>
-  <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bri
+  <p style="text-align:center;">Photography is my hobby and passion. Through my lens, I capture moments that bring joy, tell stories, and preserve memories. Every photo is a little piece of my heart shared with the world.</p>
+</section>
+
+<section id="portraits">
+  <h2>Portraits</h2>
+  <div class="grid" id="portraits-grid"></div>
+</section>
+
+<section id="events">
+  <h2>Events</h2>
+  <div class="grid" id="events-grid"></div>
+</section>
+
+<section id="landscapes">
+  <h2>Landscapes</h2>
+  <div class="grid" id="landscapes-grid"></div>
+</section>
+
+<section id="street">
+  <h2>Street Photography</h2>
+  <div class="grid" id="street-grid"></div>
+</section>
+
+<section id="products">
+  <h2>Product Photography</h2>
+  <div class="grid" id="products-grid"></div>
+</section>
+
+<section id="videos">
+  <h2>Videos</h2>
+  <div class="grid" id="videos-grid"></div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p style="text-align:center;">Email: <a href="mailto:cyrillgalapon@gmail.com">cyrillgalapon@gmail.com</a></p>
+  <p style="text-align:center;">Instagram: <a href="#">@yourinstagram</a></p>
+  <p style="text-align:center;">Facebook: <a href="#">Your Facebook</a></p>
+</section>
+
+</div>
+
+<footer>
+  &copy; 2025 Cyrill Jean F. Galapon. All rights reserved.
+</footer>
+
+<script>
+async function loadMedia() {
+  const res = await fetch("media.json");
+  const data = await res.json();
+
+  function loadCategoryImages(categoryName, gridId) {
+    const grid = document.getElementById(gridId);
+    if(!data.categories[categoryName]) return;
+    data.categories[categoryName].forEach(file => {
+      const img = document.createElement("img");
+      img.src = "images/" + encodeURIComponent(file);
+      img.alt = categoryName;
+      grid.appendChild(img);
+    });
+  }
+
+  loadCategoryImages("Portrait", "portraits-grid");
+  loadCategoryImages("Events", "events-grid");
+  loadCategoryImages("Landscape", "landscapes-grid");
+  loadCategoryImages("Street", "street-grid");
+  loadCategoryImages("Products", "products-grid");
+
+  const videoGrid = document.getElementById("videos-grid");
+  data.videos.forEach(file => {
+    if(file){
+      const vid = document.createElement("video");
+      vid.src = "videos/" + encodeURIComponent(file);
+      vid.controls = true;
+      videoGrid.appendChild(vid);
+    }
+  });
+}
+
+loadMedia();
+</script>
+
+</body>
+</html>
